@@ -1,0 +1,6 @@
+@font-face {
+    font-family:Ewert;
+    src:url(../font/Bungee_Shade/BungeeShade-Regular.ttf);
+}
+img{width: 50px;height: 50px}
+body{background-color:  #1d8348 ;margin-left: 45%;margin-top: 15%}
