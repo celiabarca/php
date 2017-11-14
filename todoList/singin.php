@@ -1,10 +1,12 @@
 <?php
+ini_set('display_errors', 1);
 //iniciamos sesion
   session_start();
   //omportamos el head
   include 'lib/head.php';
   //importamos el footer
   include 'lib/footer.php';
+  include 'configure.php';
   //try para controlar los errores i que no le pete al usuario en la calle
   try{
     //if para comprobar que los campos que nos envian no estan vacios
@@ -15,11 +17,7 @@
 //guardar campos en variables
        $nom=htmlspecialchars($_POST['nom']);
        $pass=md5(htmlspecialchars($_POST['pass']));
-       //creamos una conexion a la bbdd
-       $conn = new mysqli("localhost", "todolist", "linuxlinux", "todoList");
-       if ($conn->connect_errno) {
-           echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
-       }
+
        //esta es una consulta para comprobar que hay un user con el nombre y la contraseña igual que la que nos casa el user
       $sql="SELECT *FROM cliente WHERE user='$nom' && pass='$pass'";
       //ejecutamos la consulta
@@ -43,7 +41,7 @@
 ?>
 
    <div style="margin-top:3%;">
-<form action="<?= $SERVER['PHP_SELF'];?>" method="post">
+<form action="<?= $_SERVER['PHP_SELF'];?>" method="post">
   <p>Nombre: <input type="text" class="form-control" name="nom"></p>
   <p>Password: <input type="password" class="form-control" name="pass"></p>
   <input type="submit" name="enviar"class="btn btn-primary btn-block" value="enviar">

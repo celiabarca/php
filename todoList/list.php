@@ -4,15 +4,10 @@
   //omportamos el head diferente porque en este hay la opcion de cerrar sesion
 include 'lib/headRegistro.php';
 include 'lib/footer.php';
+include 'configure.php';
 //metemos en la variable el user y el pass atraves de las variables de session
 $nom=$_SESSION['cliente']['user'];
 $pass=$_SESSION['cliente']['pass'];
-//abrimos una conexion
-$conn = new mysqli("localhost", "todolist", "linuxlinux", "todoList");
-//echo $nom;
-if ($conn->connect_errno) {
-    echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
-}
 //creamos una sentencia que saque todos los datos de las tareas
 $sql1="SELECT tarea, fecha_fin, fecha_ini, titulo,tareas.id, acabada from tareas inner join cliente on id_cliente = cliente.id where user ='$nom' && pass='$pass'";
 //ejecutamos la sentencia

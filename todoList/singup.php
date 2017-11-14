@@ -1,10 +1,12 @@
 <?php
+ini_set('display_errors', 1);
 //iniciamos sesion
   session_start();
   //omportamos el head
   include 'lib/head.php';
   //importamos el footer
   include 'lib/footer.php';
+  include 'configure.php';
   //try para controlar los errores i que no le pete al usuario en la calle
   try{
     //if para comprobar que los campos que nos envian no estan vacios y que la contraseña i la comprobacion de la contraseña son iguales
@@ -20,14 +22,12 @@
       $nom=htmlspecialchars($_POST['nom']);
       $email=htmlspecialchars($_POST['email']);
       $pass=md5(htmlspecialchars($_POST['pass1']));
-      //creamos una conexion a la bbdd
-      $conn = new mysqli("localhost", "todolist", "linuxlinux", "todoList");
     if ($conn->connect_errno) {
         echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     }
     //INSERT INTO `todoList`.`cliente` (`id`, `user`, `pass`, `email`) VALUES (NULL, 'celia', '123', 'celia@celia');
     //insertamos el user en la bbdd
-    $sql="INSERT INTO `todoList`.`cliente` (`id`, `user`, `pass`, `email`) VALUES(NULL, '".$nom."','".$pass."','".$email."')";
+    $sql="INSERT INTO `cliente` (`id`, `user`, `pass`, `email`) VALUES(NULL, '".$nom."','".$pass."','".$email."')";
     //ejecutamos en la conexion que tenemos creeada la secuencia sql
     $res=$conn->query($sql);
 
@@ -42,7 +42,7 @@
 ?>
 
    <div style="margin-top:3%;">
-   <form action="<?= $SERVER['PHP_SELF'];?>" method="post">
+   <form action="<?= $_SERVER['PHP_SELF'];?>" method="post">
      <p>Nombre: <input type="text" class="form-control" name="nom"></p>
      <p>Email: <input type="email" class="form-control" name="email"></p>
      <p>Password: <input type="password" class="form-control" name="pass1"></p>
